@@ -79,7 +79,9 @@ while running:
 
             # bullet fire
             if event.key == pygame.K_SPACE:
-                fire_bullet(playerX, bulletY)
+                if bullet_state is 'ready':
+                    bulletX = playerX
+                    fire_bullet(bulletX, bulletY)
 
         # check  wherther we release the button
         if event.type == pygame.KEYUP:
@@ -111,8 +113,11 @@ while running:
     enemy(enemyX, enemyY)
 
     # bullet movement
+    if bulletY <= 0:
+        bulletY = 500
+        bullet_state = 'ready'
     if bullet_state is 'fire':
-        fire_bullet(playerX, bulletY)
+        fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
 
     pygame.display.update()
