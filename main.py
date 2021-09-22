@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 
 
-# create screen with height 800px and width 600px
+# create screen with height 600px and width 800px
 screen = pygame.display.set_mode((800, 600))
 
 
@@ -12,6 +12,18 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption('Space Invaders by Ross')
 icon = pygame.image.load('logo.png')
 pygame.display.set_icon(icon)
+
+
+# player
+playerImg = pygame.image.load('player.png')
+playerX = 370
+playerY = 500
+
+# player on screen
+
+
+def player():
+    screen.blit(playerImg, (playerX, playerY))
 
 
 # game loop
@@ -23,4 +35,6 @@ while running:
 
     # rgb background
     screen.fill((0, 0, 0))
+    player()
+
     pygame.display.update()
