@@ -30,7 +30,8 @@ def player(x, y):
 enemyImg = pygame.image.load('enemy.png')
 enemyX = random.randint(0, 800)
 enemyY = random.randint(50, 150)
-enemyX_change = 0
+enemyX_change = 0.3
+enemyY_change = 30
 
 
 def enemy(x, y):
@@ -58,12 +59,27 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
 
+    # move player
     playerX += playerX_change
+
+    # border
     if playerX <= 0:
         playerX = 0
+
     elif playerX >= 736:
-        playerX = 736
+        playerX = 734
     player(playerX, playerY)
+
+    # move enemy
+    enemyX += enemyX_change
+
+    # border
+    if enemyX <= 0:
+        enemyX_change = 0.5
+        enemyY += enemyY_change
+    elif enemyX >= 764:
+        enemyX_change = -0.5
+        enemyY += enemyY_change
 
     enemy(enemyX, enemyY)
 
