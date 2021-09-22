@@ -31,15 +31,23 @@ def player(x, y):
 
 
 # enemy
-enemyImg = pygame.image.load('enemy.png')
-enemyX = random.randint(0, 764)
-enemyY = random.randint(50, 150)
-enemyX_change = 0.4
-enemyY_change = 30
+enemyImg = []
+enemyX = []
+enemyY = []
+enemyX_change = []
+enemyY_change = []
+num_of_enemy = 6
+
+for i in range(num_of_enemy):
+    enemyImg.append(pygame.image.load('enemy.png'))
+    enemyX.append(random.randint(0, 764))
+    enemyY.append(random.randint(50, 150))
+    enemyX_change.append(0.4)
+    enemyY_change.append(30)
 
 
-def enemy(x, y):
-    screen.blit(enemyImg, (x, y))
+def enemy(x, y, i):
+    screen.blit(enemyImg[i], (x, y))
 
 
 # Bullet
@@ -111,26 +119,28 @@ while running:
     player(playerX, playerY)
 
     # move enemy
-    enemyX += enemyX_change
+    for i in range(num_of_enemy):
 
-    # border
-    if enemyX <= 0:
-        enemyX_change = 0.5
-        enemyY += enemyY_change
-    elif enemyX >= 764:
-        enemyX_change = -0.5
-        enemyY += enemyY_change
+        enemyX[i] += enemyX_change[i]
 
-    # collision
-    collision = is_Collision(enemyX, enemyY, bulletX, bulletY)
-    if collision:
-        bulletY = 480
-        bullet_state = 'ready'
-        counter += 1
-        enemyX = random.randint(0, 764)
-        enemyY = random.randint(50, 150)
+        # border
+        if enemyX[i] <= 0:
+            enemyX_change[i] = 0.5
+            enemyY += enemyY_change
+        elif enemyX[i] >= 764:
+            enemyX_change[i] = -0.5
+            enemyY[i] += enemyY_change[i]
 
-    enemy(enemyX, enemyY)
+        # collision
+        collision = is_Collision(enemyX[i], enemyY[i], bulletX, bulletY)
+        if collision:
+            bulletY = 480
+            bullet_state = 'ready'
+            counter += 1
+            enemyX[i] = random.randint(0, 764)
+            enemyY[i] = random.randint(50, 150)
+
+        enemy(enemyX[i], enemyY[i], i)
 
     # bullet movement
     if bulletY <= 0:
