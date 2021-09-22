@@ -8,6 +8,9 @@ pygame.init()
 # create screen with height 600px and width 800px
 screen = pygame.display.set_mode((800, 600))
 
+# background
+background = pygame.image.load('background.jpeg')
+
 
 #title and icon
 pygame.display.set_caption('Space Invaders by Ross')
@@ -30,7 +33,7 @@ def player(x, y):
 enemyImg = pygame.image.load('enemy.png')
 enemyX = random.randint(0, 800)
 enemyY = random.randint(50, 150)
-enemyX_change = 0.3
+enemyX_change = 0.4
 enemyY_change = 30
 
 
@@ -43,6 +46,8 @@ running = True
 while running:
     # rgb background
     screen.fill((0, 0, 0))
+    # background Image
+    screen.blit(background, (0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -50,9 +55,9 @@ while running:
     # move
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.3
+                playerX_change = -0.4
             if event.key == pygame.K_RIGHT:
-                playerX_change = +0.3
+                playerX_change = +0.4
 
         # check  wherther we release the button
         if event.type == pygame.KEYUP:
